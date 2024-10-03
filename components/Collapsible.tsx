@@ -1,27 +1,39 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { PropsWithChildren, useState } from 'react';
-import { StyleSheet, TouchableOpacity, useColorScheme } from 'react-native';
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { PropsWithChildren, useState } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import React from "react";
 
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { Colors } from '@/constants/Colors';
-
-export function Collapsible({ children, title }: PropsWithChildren & { title: string }) {
+// Pass the theme as a prop
+export function Collapsible({
+  children,
+  title,
+  myTheme, // Accept themed styles here
+}: PropsWithChildren & { title: string; myTheme: any }) {
   const [isOpen, setIsOpen] = useState(false);
-  const theme = useColorScheme() ?? 'light';
 
   return (
-    <ThemedView>
+    <ThemedView
+      style={[
+        styles.body,
+        { backgroundColor: myTheme.paymentLetterBackground }, // Apply theme background
+      ]}
+    >
       <TouchableOpacity
-        style={styles.heading}
+        style={[
+          styles.heading,
+          { backgroundColor: myTheme.paymentLetterBackground }, // Apply theme background
+        ]}
         onPress={() => setIsOpen((value) => !value)}
-        activeOpacity={0.8}>
+        activeOpacity={0.8}
+      >
         <Ionicons
-          name={isOpen ? 'chevron-down' : 'chevron-forward-outline'}
+          name={isOpen ? "chevron-down" : "chevron-forward-outline"}
           size={18}
-          color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
+          color={myTheme.icon} // Apply theme color
         />
-        <ThemedText type="defaultSemiBold">{title}</ThemedText>
+        <ThemedText type="CollapseTitle">{title}</ThemedText>
       </TouchableOpacity>
       {isOpen && <ThemedView style={styles.content}>{children}</ThemedView>}
     </ThemedView>
@@ -30,12 +42,20 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
 
 const styles = StyleSheet.create({
   heading: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
   },
   content: {
     marginTop: 6,
     marginLeft: 24,
+  },
+  body: {
+    marginBottom: 24,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: "#cccccc",
+    borderWidth: 1,
+    borderBottomWidth: 3,
   },
 });
