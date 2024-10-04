@@ -98,7 +98,7 @@ const Transactions = () => {
                       <Text style={styles.itemText}>${item.amount}</Text>
                     </View>
                     <View style={styles.report}>
-                      <Text style={styles.itemText}>Tip added:</Text>
+                      <Text style={styles.itemText}>Added Tip:</Text>
                       <Text style={styles.itemText}>${item.tip}</Text>
                     </View>
                   </View>

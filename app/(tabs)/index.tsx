@@ -88,7 +88,7 @@ export default function Home() {
   };
 
   const generateTransaction = async () => {
-    if (parseFloat(amount) == 0) {
+    if (!amount) {
       return;
     }
 
